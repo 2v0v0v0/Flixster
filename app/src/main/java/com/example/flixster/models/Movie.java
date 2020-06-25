@@ -4,14 +4,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Movie {
     String backdropPath;
     String posterPath;
     String title;
     String overview;
+    String rating;
+    String popularity;
+    String releaseDate;
 
 
     public Movie(JSONObject jsonObject) throws JSONException {
@@ -19,6 +25,10 @@ public class Movie {
         posterPath = jsonObject.getString("poster_path");
         title = jsonObject.getString("title");
         overview = jsonObject.getString("overview");
+        rating = jsonObject.getString("vote_average");
+        popularity = jsonObject.getString("popularity");
+        releaseDate = jsonObject.getString("release_date");
+
 
     }
 
@@ -43,5 +53,21 @@ public class Movie {
 
     public String getOverview() {
         return overview;
+    }
+
+    public float getRating() {
+        return Float.parseFloat(rating);
+    }
+
+    public float getPopularity() {
+        return Float.parseFloat(popularity);
+    }
+
+    public String getReleaseDate() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+
+        String formattedReleaseDate = simpleDateFormat.format(new SimpleDateFormat("yyyy-mm-dd").parse(releaseDate));
+
+        return formattedReleaseDate;
     }
 }
