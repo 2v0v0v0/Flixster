@@ -84,26 +84,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview.setText(movie.getOverview());
             //ivPoster.setBackgroundColor(Color.BLACK);
 
-            //Onclick listeners
-            tvTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickListener.onMovieClicked(getAdapterPosition());
-                }
-            });
-            tvOverview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickListener.onMovieClicked(getAdapterPosition());
-                }
-            });
 
-            ivPoster.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickListener.onMovieClicked(getAdapterPosition());
-                }
-            });
 
 
             //Load images
@@ -123,9 +104,32 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
             Glide.with(context)
                     .load(imageUrl)
-                    .placeholder(loadImage).transform(new RoundedCornersTransformation(radius, margin))
+                    .placeholder(loadImage)
+                    .transform(new RoundedCornersTransformation(radius, margin))
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(ivPoster);
+
+            //Onclick listeners
+            /*If have time set onClick listener on the movie adapter*/
+            tvTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onMovieClicked(getAdapterPosition());
+                }
+            });
+            tvOverview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onMovieClicked(getAdapterPosition());
+                }
+            });
+
+            ivPoster.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onMovieClicked(getAdapterPosition());
+                }
+            });
         }
 
     }

@@ -1,5 +1,7 @@
 package com.example.flixster.models;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,7 +10,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Movie {
     String backdropPath;
@@ -34,8 +35,8 @@ public class Movie {
 
     public static List<Movie> fromJsonArray(JSONArray movieJsonArray) throws JSONException {
         List<Movie> movies = new ArrayList<>();
-        for (int i = 0; i < movieJsonArray.length(); i++) {
-            movies.add(new Movie(movieJsonArray.getJSONObject(i)));
+        for (int j = 0; j < movieJsonArray.length(); j++) {
+            movies.add(new Movie(movieJsonArray.getJSONObject(j)));
         }
         return movies;
     }
@@ -55,18 +56,23 @@ public class Movie {
         return overview;
     }
 
-    public float getRating() {
-        return Float.parseFloat(rating);
+    public String getRating() {
+        return rating;
     }
 
-    public float getPopularity() {
-        return Float.parseFloat(popularity);
+    public String getPopularity() {
+        return popularity;
     }
 
-    public String getReleaseDate() throws ParseException {
+    public String getReleaseDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+        String formattedReleaseDate ="";
 
-        String formattedReleaseDate = simpleDateFormat.format(new SimpleDateFormat("yyyy-mm-dd").parse(releaseDate));
+        try{
+            formattedReleaseDate = simpleDateFormat.format(new SimpleDateFormat("yyyy-mm-dd").parse(releaseDate));
+        }catch (ParseException e){
+            Log.e("Movie.java", "formattedReleaseDate is null");
+        }
 
         return formattedReleaseDate;
     }

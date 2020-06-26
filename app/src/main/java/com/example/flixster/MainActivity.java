@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -27,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=8b73d39e399dba004915bb1e49f68d53";
     public static final String TAG = "MainActivity";
     public static final int REQUEST_CODE = 22;
+
+
+    public static final String MOVIE_TITLE = "Movie's title";
+    public static final String MOVIE_OVERVIEW = "Movie's overview";
+    public static final String MOVIE_RATING = "Movie's rating";
+    public static final String MOVIE_RELEASE_DATE = "Movie's release date";
+    public static final String MOVIE_POPULARITY = "Movie's popularity";
+    public static final String MOVIE_BACKDROP = "Movie's poster";
     MovieAdapter movieAdapter;
 
     List<Movie> movies;
@@ -34,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(R.string.main_activity);
         RecyclerView rvMovies = findViewById(R.id.rvMovies);
 
         movies = new ArrayList<>();
@@ -43,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
             public void onMovieClicked(int position) {
                 //create new activity
                 Intent i = new Intent(MainActivity.this, MoreDetailsActivity.class);
+                //pass data
+
+                i.putExtra(MOVIE_TITLE, movies.get(position).getTitle());
+                i.putExtra(MOVIE_OVERVIEW, movies.get(position).getOverview());
+                i.putExtra(MOVIE_RATING, movies.get(position).getRating());
+                i.putExtra(MOVIE_POPULARITY, movies.get(position).getPopularity());
+                i.putExtra(MOVIE_RELEASE_DATE, movies.get(position).getReleaseDate());
+                i.putExtra(MOVIE_BACKDROP, movies.get(position).getBackdropPath());
                 //display the activity
                 startActivityForResult(i, 22);
             }
@@ -82,5 +100,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
 }
