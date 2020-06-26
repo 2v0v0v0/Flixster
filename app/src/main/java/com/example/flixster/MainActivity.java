@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -24,10 +25,13 @@ import java.util.List;
 
 import okhttp3.Headers;
 
+
+
 public class MainActivity extends AppCompatActivity {
-    public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=8b73d39e399dba004915bb1e49f68d53";
+    public static final String API_KEY = "8b73d39e399dba004915bb1e49f68d53";
+    public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key="+API_KEY;
     public static final String TAG = "MainActivity";
-    public static final int REQUEST_CODE = 22;
+
 
 
     public static final String MOVIE_TITLE = "Movie's title";
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String MOVIE_RELEASE_DATE = "Movie's release date";
     public static final String MOVIE_POPULARITY = "Movie's popularity";
     public static final String MOVIE_BACKDROP = "Movie's poster";
+    public static final String MOVIE_ID = "Movie's id";
+
     MovieAdapter movieAdapter;
 
     List<Movie> movies;
@@ -54,17 +60,20 @@ public class MainActivity extends AppCompatActivity {
                 //create new activity
                 Intent i = new Intent(MainActivity.this, MoreDetailsActivity.class);
                 //pass data
-
                 i.putExtra(MOVIE_TITLE, movies.get(position).getTitle());
                 i.putExtra(MOVIE_OVERVIEW, movies.get(position).getOverview());
                 i.putExtra(MOVIE_RATING, movies.get(position).getRating());
                 i.putExtra(MOVIE_POPULARITY, movies.get(position).getPopularity());
                 i.putExtra(MOVIE_RELEASE_DATE, movies.get(position).getReleaseDate());
                 i.putExtra(MOVIE_BACKDROP, movies.get(position).getBackdropPath());
+                i.putExtra(MOVIE_ID, movies.get(position).getId());
                 //display the activity
-                startActivityForResult(i, 22);
+                Toast.makeText(getApplicationContext(),"More Details", Toast.LENGTH_SHORT).show();
+                startActivity(i);
             }
         };
+
+
 
 
         //Create an adapter
@@ -99,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFaliure");
             }
         });
+
 
 
 

@@ -30,6 +30,8 @@
         android:textSize="24sp"
         android:textColor="@color/textColor"
         android:fontFamily="@font/alfa_slab_one"
+        android:maxLines="1"
+        android:ellipsize="end"
         tools:text="Bloodshot" />
 
     <TextView

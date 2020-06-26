@@ -2,7 +2,6 @@ package com.example.flixster.adapters;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
@@ -21,6 +21,8 @@ import com.example.flixster.models.Movie;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
     Context context;
@@ -82,7 +84,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
-            //ivPoster.setBackgroundColor(Color.BLACK);
 
 
 
@@ -106,8 +107,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     .load(imageUrl)
                     .placeholder(loadImage)
                     .transform(new RoundedCornersTransformation(radius, margin))
-                    .transition(DrawableTransitionOptions.withCrossFade())
+                    //.transition(DrawableTransitionOptions.withCrossFade())
                     .into(ivPoster);
+
+
+
+
 
             //Onclick listeners
             /*If have time set onClick listener on the movie adapter*/
