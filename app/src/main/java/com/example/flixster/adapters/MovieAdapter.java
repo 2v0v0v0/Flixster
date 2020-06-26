@@ -11,11 +11,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.flixster.R;
+import com.example.flixster.databinding.ItemMovieBinding;
 import com.example.flixster.models.Movie;
 
 import java.util.List;
@@ -30,6 +28,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     int radius = 30; // corner radius, higher value = more rounded
     int margin = 10; // crop margin, set to 0 for corners with no crop
     OnClickListener clickListener;
+    ItemMovieBinding binding;
 
     public interface OnClickListener {
         void onMovieClicked(int position);
@@ -47,7 +46,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d("MovieAdapter", "onCreateViewHolder");
-        View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
+        binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        View movieView = binding.getRoot();
         return new ViewHolder(movieView);
     }
 
@@ -68,26 +68,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivPoster;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.tvOverview);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
+
 
 
         }
 
         public void bind(Movie movie) {
-            tvTitle.setText(movie.getTitle());
-            tvOverview.setText(movie.getOverview());
-
-
-
-
+            binding.tvTitle.setText(movie.getTitle());
+            binding.tvOverview.setText(movie.getOverview());
             //Load images
             String imageUrl;
             int loadImage;
@@ -108,28 +100,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     .placeholder(loadImage)
                     .transform(new RoundedCornersTransformation(radius, margin))
                     //.transition(DrawableTransitionOptions.withCrossFade())
-                    .into(ivPoster);
+                    .into(binding.ivPoster);
 
 
 
 
 
             //Onclick listeners
-            /*If have time set onClick listener on the movie adapter*/
-            tvTitle.setOnClickListener(new View.OnClickListener() {
+            binding.tvTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     clickListener.onMovieClicked(getAdapterPosition());
                 }
             });
-            tvOverview.setOnClickListener(new View.OnClickListener() {
+            binding.tvOverview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     clickListener.onMovieClicked(getAdapterPosition());
                 }
             });
 
-            ivPoster.setOnClickListener(new View.OnClickListener() {
+            binding.ivPoster.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     clickListener.onMovieClicked(getAdapterPosition());

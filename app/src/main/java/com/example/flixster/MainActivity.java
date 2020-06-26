@@ -9,11 +9,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
+import com.example.flixster.databinding.ActivityMainBinding;
+import com.example.flixster.databinding.ActivityMoreDetailsBinding;
 import com.example.flixster.models.Movie;
 
 import org.json.JSONArray;
@@ -28,6 +31,8 @@ import okhttp3.Headers;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
     public static final String API_KEY = "8b73d39e399dba004915bb1e49f68d53";
     public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key="+API_KEY;
     public static final String TAG = "MainActivity";
@@ -48,9 +53,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         setTitle(R.string.main_activity);
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
+        //RecyclerView rvMovies = findViewById(R.id.rvMovies);
 
         movies = new ArrayList<>();
 
@@ -80,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
         movieAdapter = new MovieAdapter(this, movies, onclickListener);
 
         //Set the adapter on the recycler view
-        rvMovies.setAdapter(movieAdapter);
+        binding.rvMovies.setAdapter(movieAdapter);
 
         //Set a layout manager on the recycler view
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
