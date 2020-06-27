@@ -4,6 +4,10 @@
         "source": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout-land\\activity_more_details.xml"
     },
     {
+        "merged": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout-land\\activity_movie_trailer.xml",
+        "source": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout-land\\activity_movie_trailer.xml"
+    },
+    {
         "merged": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout-land\\item_movie.xml",
         "source": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout-land\\item_movie.xml"
     }

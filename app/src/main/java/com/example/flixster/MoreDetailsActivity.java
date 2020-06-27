@@ -2,7 +2,7 @@ package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,8 +16,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.databinding.ActivityMoreDetailsBinding;
-import com.example.flixster.models.Movie;
-import com.example.flixster.models.Trailer;
+
 
 
 import org.json.JSONArray;
@@ -31,7 +30,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
 
 
-import static com.example.flixster.MainActivity.API_KEY;
+
 import static com.example.flixster.MainActivity.MOVIE_ID;
 import static com.example.flixster.MainActivity.MOVIE_TITLE;
 import static com.example.flixster.MainActivity.MOVIE_OVERVIEW;
@@ -40,13 +39,14 @@ import static com.example.flixster.MainActivity.MOVIE_POPULARITY;
 import static com.example.flixster.MainActivity.MOVIE_RELEASE_DATE;
 import static com.example.flixster.MainActivity.MOVIE_BACKDROP;
 
+
+
 public class MoreDetailsActivity extends AppCompatActivity {
     public static final String TAG = "MoreDetailsActivity";
-    public static final String MOVIE_NAME = "Movie's key";
-    public static final String MOVIE_KEY = "Movie's name";
+    public static final String VID_NAME = "Viedo's name";
+    public static final String VID_KEY = "Video's key";
+    public static final String MOVIE_NAME= "Movie's name";
 
-
-    List<String> trailers;
 
 
 
@@ -56,6 +56,7 @@ public class MoreDetailsActivity extends AppCompatActivity {
         final ActivityMoreDetailsBinding binding = ActivityMoreDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
 
 
         String id = getIntent().getStringExtra(MOVIE_ID);
@@ -84,10 +85,10 @@ public class MoreDetailsActivity extends AppCompatActivity {
         int loadImage = R.drawable.flicks_backdrop_placeholder;
         Glide.with(this).load(imageUrl).placeholder(loadImage)
                 .transform(new RoundedCornersTransformation(30, 10)).into(binding.ivPoster);
+        final String movieTitle = getIntent().getStringExtra(MOVIE_TITLE);
 
-
-        final List<Trailer> trailers = new ArrayList<>();
-        String movieVideosURL = String.format("https://api.themoviedb.org/3/movie/%s/videos?api_key=%s&language=en-US", getIntent().getStringExtra(MOVIE_ID),API_KEY);
+        String movieVideosURL = String.format("https://api.themoviedb.org/3/movie/%s/videos?api_key=%s&language=en-US",
+                getIntent().getStringExtra(MOVIE_ID),getString(R.string.tmdb_api_key));
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(movieVideosURL, new JsonHttpResponseHandler() {
             @Override
@@ -105,7 +106,7 @@ public class MoreDetailsActivity extends AppCompatActivity {
                         trailer = results.getJSONObject(i);
                         key = trailer.getString("key");
                     }
-                    final String name = trailer.getString("name");
+                    final String vidName = trailer.getString("name");
                     final String workingKey = key;
                     //If movie's doesn't have trailer
                     if(key!= null){
@@ -114,8 +115,9 @@ public class MoreDetailsActivity extends AppCompatActivity {
                                 //create new activity
                                 Intent i = new Intent(MoreDetailsActivity.this, MovieTrailerActivity.class);
                                 //pass data
-                                i.putExtra(MOVIE_NAME,name );
-                                i.putExtra(MOVIE_KEY,workingKey);
+                                i.putExtra(VID_NAME,vidName );
+                                i.putExtra(VID_KEY,workingKey);
+                                i.putExtra(MOVIE_NAME, movieTitle);
                                 //display the activity
                                 Toast.makeText(getApplicationContext(),"Movie Trailer", Toast.LENGTH_SHORT).show();
                                 startActivity(i);

@@ -32,8 +32,7 @@ import okhttp3.Headers;
 public class MainActivity extends AppCompatActivity {
 
 
-    public static final String API_KEY = "8b73d39e399dba004915bb1e49f68d53";
-    public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key="+API_KEY;
+    public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=";
     public static final String TAG = "MainActivity";
 
 
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         binding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
+        client.get(NOW_PLAYING_URL+getString(R.string.tmdb_api_key), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");

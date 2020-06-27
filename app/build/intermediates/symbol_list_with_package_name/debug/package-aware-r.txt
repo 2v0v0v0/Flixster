@@ -672,6 +672,7 @@ drawable notify_panel_notification_icon_bg
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 font alfa_slab_one
+font arbutus
 id ALT
 id CTRL
 id FUNCTION
@@ -735,10 +736,12 @@ id alertTitle
 id all
 id always
 id async
+id bar
 id barrier
 id beginning
 id blocking
 id bottom
+id button
 id buttonPanel
 id center
 id center_horizontal
@@ -864,6 +867,7 @@ id tvOverview
 id tvPopularity
 id tvRating
 id tvTitle
+id tvVideoName
 id uniform
 id up
 id useLogo
@@ -964,6 +968,7 @@ string app_name
 string main_activity
 string search_menu_title
 string status_bar_notification_info_overflow
+string tmdb_api_key
 string youtube_api_key
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light

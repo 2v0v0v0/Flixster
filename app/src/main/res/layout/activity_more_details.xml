@@ -48,7 +48,6 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:text="TextView"
         android:textSize="26sp"
         android:textColor="@color/textColor"
         android:fontFamily="@font/alfa_slab_one"
