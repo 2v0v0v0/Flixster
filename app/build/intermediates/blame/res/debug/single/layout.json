@@ -1,14 +1,18 @@
 [
     {
-        "merged": "C:\\Users\\thuvo\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_more_details.xml",
-        "source": "C:\\Users\\thuvo\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout\\activity_more_details.xml"
+        "merged": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_movie_trailer.xml",
+        "source": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout\\activity_movie_trailer.xml"
     },
     {
-        "merged": "C:\\Users\\thuvo\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_movie.xml",
-        "source": "C:\\Users\\thuvo\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout\\item_movie.xml"
+        "merged": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_more_details.xml",
+        "source": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout\\activity_more_details.xml"
     },
     {
-        "merged": "C:\\Users\\thuvo\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
-        "source": "C:\\Users\\thuvo\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout\\activity_main.xml"
+        "merged": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_movie.xml",
+        "source": "C:\\Users\\14046\\AndroidStudioProjects\\Flixster\\app\\src\\main\\res\\layout\\item_movie.xml"
     }
 ]

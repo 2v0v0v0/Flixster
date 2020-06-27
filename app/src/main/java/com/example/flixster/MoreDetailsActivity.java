@@ -3,27 +3,33 @@ package com.example.flixster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.bumptech.glide.Glide;
+
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.databinding.ActivityMoreDetailsBinding;
 import com.example.flixster.models.Movie;
+import com.example.flixster.models.Trailer;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
+
 
 import static com.example.flixster.MainActivity.API_KEY;
 import static com.example.flixster.MainActivity.MOVIE_ID;
@@ -36,13 +42,8 @@ import static com.example.flixster.MainActivity.MOVIE_BACKDROP;
 
 public class MoreDetailsActivity extends AppCompatActivity {
     public static final String TAG = "MoreDetailsActivity";
-
-    private TextView tvTitle;
-    private RatingBar rbRating;
-    private TextView tvRating;
-    private ImageView ivPoster;
-    private TextView tvOverview;
-    private TextView tvPopularity;
+    public static final String MOVIE_NAME = "Movie's key";
+    public static final String MOVIE_KEY = "Movie's name";
 
 
     List<String> trailers;
@@ -52,51 +53,85 @@ public class MoreDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMoreDetailsBinding binding = ActivityMoreDetailsBinding.inflate(getLayoutInflater());
+        final ActivityMoreDetailsBinding binding = ActivityMoreDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
 
         String id = getIntent().getStringExtra(MOVIE_ID);
-        String trailerUrl = String.format("https://api.themoviedb.org/3/movie/%s/trailers?api_key=%s", id, API_KEY);
 
 
 
         //View Binding
 
-            binding.tvTitle.setText(getIntent().getStringExtra(MOVIE_TITLE));
+        binding.tvTitle.setText(getIntent().getStringExtra(MOVIE_TITLE));
 
 
-            String ratingS = getIntent().getStringExtra(MOVIE_RATING);
-            float rating = Float.parseFloat(ratingS);
-            binding.tvRating.setText("Rating: " + ratingS + "/10");
+        String ratingS = getIntent().getStringExtra(MOVIE_RATING);
+        float rating = Float.parseFloat(ratingS);
+        binding.tvRating.setText("Rating: " + ratingS + "/10");
 
-            binding.rbRating.setRating(rating / 2);
+        binding.rbRating.setRating(rating / 2);
 
-            binding.tvOverview.setText("Overview: " + getIntent().getStringExtra(MOVIE_OVERVIEW));
+        binding.tvOverview.setText("Overview: " + getIntent().getStringExtra(MOVIE_OVERVIEW));
 
-            String popularityDate = String.format("Popularity: " + getIntent().getStringExtra(MOVIE_POPULARITY) + "\nRelease Date: " + getIntent().getStringExtra(MOVIE_RELEASE_DATE));
-            binding.tvPopularity.setText(popularityDate);
+        String popularityDate = String.format("Popularity: " + getIntent().getStringExtra(MOVIE_POPULARITY) + "\nRelease Date: " + getIntent().getStringExtra(MOVIE_RELEASE_DATE));
+        binding.tvPopularity.setText(popularityDate);
 
 
+
+        String imageUrl = getIntent().getStringExtra(MOVIE_BACKDROP);
+        int loadImage = R.drawable.flicks_backdrop_placeholder;
+        Glide.with(this).load(imageUrl).placeholder(loadImage)
+                .transform(new RoundedCornersTransformation(30, 10)).into(binding.ivPoster);
+
+
+        final List<Trailer> trailers = new ArrayList<>();
+        String movieVideosURL = String.format("https://api.themoviedb.org/3/movie/%s/videos?api_key=%s&language=en-US", getIntent().getStringExtra(MOVIE_ID),API_KEY);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(trailerUrl, new JsonHttpResponseHandler() {
+        client.get(movieVideosURL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
                 try {
-                    JSONArray results = jsonObject.getJSONArray("youtube");
-                    //results.getJSONObject();
-                    /*Log.i(TAG, "Results: " + results.toString());
-                    trailers.addAll(jsonObject.getString("source"));
-                    Log.i(TAG, "Trailers: " + trailers.size());
-                    //String youtubeSource = jsonObject.getString("source");*/
+                    JSONArray results = jsonObject.getJSONArray("results");
+                    int i = 0;
+                    JSONObject trailer = results.getJSONObject(i);
+                    String key = trailer.getString("key");
+                    int arrayLength = results.length();
+                    while (key==null&&i<arrayLength){
+                        i++;
+                        trailer = results.getJSONObject(i);
+                        key = trailer.getString("key");
+                    }
+                    final String name = trailer.getString("name");
+                    final String workingKey = key;
+                    //If movie's doesn't have trailer
+                    if(key!= null){
+                        binding.ivPoster.setOnClickListener(new View.OnClickListener(){
+                            public void onClick(View v) {
+                                //create new activity
+                                Intent i = new Intent(MoreDetailsActivity.this, MovieTrailerActivity.class);
+                                //pass data
+                                i.putExtra(MOVIE_NAME,name );
+                                i.putExtra(MOVIE_KEY,workingKey);
+                                //display the activity
+                                Toast.makeText(getApplicationContext(),"Movie Trailer", Toast.LENGTH_SHORT).show();
+                                startActivity(i);
+                                Log.v(TAG, " click");
+                            }
+                        });
+                    }
+
+                    Log.i(TAG, "Results: " + results.length());
+
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
                 }
 
             }
+
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
@@ -105,10 +140,7 @@ public class MoreDetailsActivity extends AppCompatActivity {
         });
 
 
-        String imageUrl = getIntent().getStringExtra(MOVIE_BACKDROP);
-        int loadImage = R.drawable.flicks_backdrop_placeholder;
-        Glide.with(this).load(imageUrl).placeholder(loadImage)
-                .transform(new RoundedCornersTransformation(30, 10)).into(binding.ivPoster);
+
 
     }
 

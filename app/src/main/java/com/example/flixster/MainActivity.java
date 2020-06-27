@@ -16,7 +16,6 @@ import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
 import com.example.flixster.databinding.ActivityMainBinding;
-import com.example.flixster.databinding.ActivityMoreDetailsBinding;
 import com.example.flixster.models.Movie;
 
 import org.json.JSONArray;
