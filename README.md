@@ -2,7 +2,7 @@
 
 **Flixster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: **X** hours spent in total
+Time spent: **44** hours spent in total
 
 ## User Stories
 
@@ -24,8 +24,8 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
-
+* [x] App launcher icon
+* [x] Button to return to main activity
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
